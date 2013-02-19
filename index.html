@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Zeroclipboard</title>
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="ZeroClipboard.min.js"></script>
+    </head>
+    <body>
+        <h4>Debug Console:</h4>
+        <div id="clipboard_ui"><div>
+        <div id="d_debug"></div>
+
+        <script type="text/javascript" charset="utf-8">
+        $(function() {
+
+            var $elm = $('<button id="d_clip_button" class="my_clip_button" title="Click me to copy to clipboard." data-clipboard-text="Copy me!"><b>Copy To Clipboard...</b></button>');
+            //var clip = new ZeroClipboard($('#d_clip_button'), { moviePath: 'ZeroClipboard.swf' });
+            var clip = new ZeroClipboard($elm, { moviePath: 'ZeroClipboard.swf' });
+         
+            clip.on('load', function (client) {
+                debugstr("Flash movie loaded and ready.");
+            });
+            clip.on('complete', function (client, args) {
+                debugstr("Copied text to clipboard: " + args.text );
+            });
+            
+            // jquery stuff (optional)
+            function debugstr(text) {
+                $("#d_debug").append($("<p>").text(text));
+            }
+            
+            $elm.appendTo('#clipboard_ui');
+            
+        });
+
+        </script>
+    
+    </body>
+</html>
